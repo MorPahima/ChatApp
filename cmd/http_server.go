@@ -21,6 +21,7 @@ func (s *Server) setupServer() *gin.Engine {
 	r := gin.Default()
 	r.GET("/health", handlers.Health())
 	r.GET("/", handlers.Noam())
+	r.GET("/get-full-db", handlers.GetDB(s.mongoRepo))
 	r.POST("/insert-user", handlers.Set(s.mongoRepo))
 	//r.POST("/reports/export/pdf/*reportId", handlers.ReportExportHandler(s.reportService, "pdf"))
 	return r
