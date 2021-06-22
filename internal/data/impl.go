@@ -2,9 +2,8 @@ package data
 
 import (
 	"context"
-	"fmt"
+	"github.com/sirupsen/logrus"
 	"go.mongodb.org/mongo-driver/mongo"
-	"log"
 )
 
 type mongoRepository struct {
@@ -16,19 +15,13 @@ func NewMongoRepository(client *mongo.Client, ctx context.Context) *mongoReposit
 	return &mongoRepository{client: client, ctx: ctx}
 }
 
-func (this *mongoRepository) Set(s string) error {
-
-	user := User{Name: s}
+func (this *mongoRepository) Set(body interface{}) error {
 
 	collection := this.client.Database("ChatApplication").Collection("users")
-	result, err := collection.InsertOne(this.ctx, user)
+	_, err := collection.InsertOne(this.ctx, body)
 	if err != nil {
-		log.Fatal(err)
+		logrus.Infof("could not insert body %+v", body)
+		return err
 	}
-	fmt.Println(result)
 	return nil
-}
-
-type User struct {
-	Name string `bson:"name"`
 }

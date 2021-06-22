@@ -1,5 +1,5 @@
 package data
 
 type MongoRepository interface {
-	Set() error
+	Set(body interface{}) error
 }

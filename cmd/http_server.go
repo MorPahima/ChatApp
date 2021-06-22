@@ -2,22 +2,26 @@ package cmd
 
 import (
 	"ChatApp/cmd/handlers"
+	"ChatApp/internal/data"
 	"fmt"
 	"github.com/gin-gonic/gin"
 )
 
 type Server struct {
 	config          Config
+	mongoRepo data.MongoRepository
 }
 
-func NewServer(config Config) *Server {
-	return &Server{config: config}
+func NewServer(config Config, mongoRepo data.MongoRepository) *Server {
+	return &Server{config: config, mongoRepo: mongoRepo}
 }
+
 
 func (s *Server) setupServer() *gin.Engine {
 	r := gin.Default()
 	r.GET("/health", handlers.Health())
 	r.GET("/", handlers.Noam())
+	r.POST("/insert-user", handlers.Set(s.mongoRepo))
 	//r.POST("/reports/export/pdf/*reportId", handlers.ReportExportHandler(s.reportService, "pdf"))
 	return r
 }
