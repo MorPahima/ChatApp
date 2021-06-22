@@ -16,7 +16,8 @@ func NewServer(config Config) *Server {
 
 func (s *Server) setupServer() *gin.Engine {
 	r := gin.Default()
-	r.GET("/", handlers.Health())
+	r.GET("/health", handlers.Health())
+	r.GET("/", handlers.Noam())
 	//r.POST("/reports/export/pdf/*reportId", handlers.ReportExportHandler(s.reportService, "pdf"))
 	return r
 }
