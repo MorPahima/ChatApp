@@ -9,7 +9,7 @@ import (
 type Config struct {
 	ServerHost string `env:"SERVER_HOST" envDefault:"localhost"`
 	ServerPort int    `env:"SERVER_PORT" envDefault:"8080"`
-	MongoURI   string `envDefault:"mongodb+srv://chatapp:mongomornoam@cluster0.zntgx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"`
+	MongoURI   string `env:"MONGO_URI"`
 }
 
 func (config Config) BaseUrl() string {
