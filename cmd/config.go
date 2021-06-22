@@ -8,7 +8,7 @@ import (
 
 type Config struct {
 	ServerHost string `env:"SERVER_HOST" envDefault:"localhost"`
-	ServerPort int    `env:"SERVER_PORT" envDefault:"8080"`
+	ServerPort int    `env:"PORT" envDefault:"8080"`
 	MongoURI   string `env:"MONGO_URI"`
 }
 
